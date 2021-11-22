@@ -30,6 +30,8 @@ public class FormItemController {
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
+        log.info("item.open={}", item.getOpen());
+
         return "form/item";
     }
 
@@ -52,13 +54,19 @@ public class FormItemController {
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
+
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
+        log.info("item.open={}", item.getOpen());
+
         return "form/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+
+        log.info("item.open={}", item.getOpen());
+
         itemRepository.update(itemId, item);
         return "redirect:/form/items/{itemId}";
     }
